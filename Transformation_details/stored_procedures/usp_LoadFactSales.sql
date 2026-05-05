@@ -1,3 +1,30 @@
+-- =====================================================================
+-- SOURCE SYNTAX: Microsoft SQL Server (MS SQL / T-SQL)
+-- TARGET PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
+-- STATUS: REQUIRES CONVERSION to Fabric-compatible syntax
+--
+-- CONVERSION NOTES FOR MICROSOFT FABRIC:
+-- 1. SET NOCOUNT ON is NOT supported in Fabric. Remove it.
+-- 2. PRINT statements are NOT supported in Fabric. Remove or replace
+--    with SELECT for debugging.
+-- 3. FORMAT() is NOT supported in Fabric. Replace with:
+--    CONVERT(INT, CONVERT(VARCHAR(8), o.OrderDate, 112)) for yyyyMMdd integer.
+-- 4. CROSS APPLY is NOT supported in Fabric. Replace with a subquery or
+--    LEFT JOIN to a derived table with GROUP BY. Example:
+--    LEFT JOIN (SELECT OrderID, SUM(LineTotal) AS OrderLineTotal
+--              FROM RAW.OrderItems GROUP BY OrderID) order_totals
+--    ON o.OrderID = order_totals.OrderID
+-- 5. ISNULL() IS supported in Fabric (or use COALESCE as alternative).
+-- 6. ROW_NUMBER() OVER(...) IS supported in Fabric.
+-- 7. ROUND() IS supported in Fabric.
+-- 8. TRUNCATE TABLE IS supported in Fabric.
+-- 9. @@ROWCOUNT is NOT supported in Fabric. Use ROW_COUNT() instead.
+-- 10. CAST(... AS VARCHAR) - Fabric requires explicit length:
+--     use CAST(... AS VARCHAR(50)) instead of CAST(... AS VARCHAR).
+-- 11. CREATE PROCEDURE syntax: Use CREATE PROCEDURE (not CREATE OR ALTER).
+-- 12. Multiple JOINs (INNER/LEFT) ARE supported in Fabric.
+-- =====================================================================
+
 CREATE   PROCEDURE TRANSFORMED.usp_LoadFactSales
 AS
 BEGIN

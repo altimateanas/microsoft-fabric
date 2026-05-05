@@ -1,3 +1,25 @@
+-- =====================================================================
+-- SOURCE SYNTAX: Microsoft SQL Server (MS SQL / T-SQL)
+-- TARGET PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
+-- STATUS: REQUIRES CONVERSION to Fabric-compatible syntax
+--
+-- CONVERSION NOTES FOR MICROSOFT FABRIC:
+-- 1. SET NOCOUNT ON is NOT supported in Fabric. Remove it.
+-- 2. PRINT statements are NOT supported in Fabric. Remove or replace
+--    with SELECT for debugging.
+-- 3. WHILE loops ARE supported in Fabric stored procedures.
+-- 4. DECLARE with inline initialization IS supported in Fabric.
+-- 5. FORMAT() is NOT supported in Fabric. Replace with:
+--    CONVERT(INT, CONVERT(VARCHAR(8), @Date, 112)) for yyyyMMdd integer.
+-- 6. DATEPART(), DATENAME(), DAY(), MONTH(), YEAR() ARE supported.
+-- 7. DATEADD() IS supported in Fabric.
+-- 8. CAST(... AS CHAR) - Fabric requires explicit length:
+--    use CAST(... AS CHAR(1)) or VARCHAR(10) instead.
+-- 9. @@ROWCOUNT is NOT supported in Fabric. Use ROW_COUNT() instead.
+-- 10. CREATE PROCEDURE syntax: Use CREATE PROCEDURE (not CREATE OR ALTER).
+-- 11. TRUNCATE TABLE IS supported in Fabric.
+-- =====================================================================
+
 CREATE   PROCEDURE TRANSFORMED.usp_LoadDimDate
 AS
 BEGIN
