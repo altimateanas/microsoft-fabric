@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "fabric-core": {
+      "type": "http",
+      "url": "https://api.fabric.microsoft.com/v1/mcp/core"
+    },
+    "fabric-pro-dev": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@microsoft/fabric-mcp@latest",
+        "server",
+        "start",
+        "--mode",
+        "all"
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "microsoft-fabric",
+  "version": "1.0.0",
+  "description": "This is to be used for Fabric demos on Altimate Code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altimateanas/microsoft-fabric.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/altimateanas/microsoft-fabric/issues"
+  },
+  "homepage": "https://github.com/altimateanas/microsoft-fabric#readme",
+  "dependencies": {
+    "@einlogic/mcp-fabric-api": "^2.8.0",
+    "mssql": "^12.5.0",
+    "tedious": "^19.2.1"
+  }
+}

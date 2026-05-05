@@ -1,0 +1,14 @@
+{
+  "warehouses": {
+    "fabric_demo_fabric_demo": {
+      "type": "sqlserver",
+      "host": "",
+      "port": 1433,
+      "database": "",
+      "azure_auth": true,
+      "encrypt": true,
+      "trust_server_certificate": false,
+      "driver": "ODBC Driver 18 for SQL Server"
+    }
+  }
+}
