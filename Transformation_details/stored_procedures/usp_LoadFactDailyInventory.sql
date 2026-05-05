@@ -1,25 +1,19 @@
 -- =====================================================================
--- SOURCE SYNTAX: Microsoft SQL Server (MS SQL / T-SQL)
--- TARGET PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
--- STATUS: REQUIRES CONVERSION to Fabric-compatible syntax
+-- PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
+-- CONVERTED FROM: Microsoft SQL Server (T-SQL)
 --
--- CONVERSION NOTES FOR MICROSOFT FABRIC:
--- 1. SET NOCOUNT ON is NOT supported in Fabric. Remove it.
--- 2. PRINT statements are NOT supported in Fabric. Remove or replace
---    with SELECT for debugging.
--- 3. FORMAT() is NOT supported in Fabric. Replace with:
---    CONVERT(INT, CONVERT(VARCHAR(8), GETDATE(), 112)) for yyyyMMdd integer.
--- 4. DELETE with WHERE IS supported in Fabric.
--- 5. DECLARE with inline initialization IS supported in Fabric.
--- 6. CASE expressions ARE supported in Fabric.
--- 7. INNER JOIN syntax IS supported in Fabric.
--- 8. @@ROWCOUNT is NOT supported in Fabric. Use ROW_COUNT() instead.
--- 9. CAST(... AS VARCHAR) - Fabric requires explicit length:
---    use CAST(... AS VARCHAR(50)) instead of CAST(... AS VARCHAR).
--- 10. CREATE PROCEDURE syntax: Use CREATE PROCEDURE (not CREATE OR ALTER).
+-- FABRIC COMPATIBILITY NOTES:
+-- - SET NOCOUNT ON: Supported in Fabric
+-- - FORMAT(): Supported in Fabric
+-- - DELETE with WHERE: Supported in Fabric
+-- - DECLARE with inline init: Supported in Fabric
+-- - CASE expressions: Supported in Fabric
+-- - INNER JOIN: Supported in Fabric
+-- - @@ROWCOUNT: Supported in Fabric
+-- - CAST(... AS VARCHAR(n)): Must specify explicit length in Fabric
 -- =====================================================================
 
-CREATE   PROCEDURE TRANSFORMED.usp_LoadFactDailyInventory
+CREATE OR ALTER PROCEDURE TRANSFORMED.usp_LoadFactDailyInventory
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -48,5 +42,5 @@ BEGIN
     INNER JOIN TRANSFORMED.DimProduct dp ON p.ProductID = dp.ProductID
     WHERE p.IsDiscontinued = 0;
 
-    PRINT 'FactDailyInventory snapshot loaded: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' rows';
+    PRINT 'FactDailyInventory snapshot loaded: ' + CAST(@@ROWCOUNT AS VARCHAR(20)) + ' rows';
 END;

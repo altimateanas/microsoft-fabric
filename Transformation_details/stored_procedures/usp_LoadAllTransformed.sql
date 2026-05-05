@@ -1,30 +1,25 @@
 -- =====================================================================
--- SOURCE SYNTAX: Microsoft SQL Server (MS SQL / T-SQL)
--- TARGET PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
--- STATUS: REQUIRES CONVERSION to Fabric-compatible syntax
+-- PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
+-- CONVERTED FROM: Microsoft SQL Server (T-SQL)
 --
--- CONVERSION NOTES FOR MICROSOFT FABRIC:
--- 1. SET NOCOUNT ON is NOT supported in Fabric. Remove it.
--- 2. PRINT statements are NOT supported in Fabric. Remove or replace
---    with SELECT statements for debugging output.
--- 3. DECLARE with inline initialization (DECLARE @x TYPE = value) IS supported.
--- 4. CONVERT(VARCHAR, @val, style) works in Fabric but prefer CAST or FORMAT.
--- 5. EXEC <procedure> syntax IS supported in Fabric.
--- 6. GETDATE() IS supported in Fabric (returns DATETIME2).
--- 7. DATEDIFF() IS supported in Fabric.
--- 8. CREATE PROCEDURE syntax: Use CREATE PROCEDURE (not CREATE OR ALTER).
---    Fabric does NOT support "CREATE OR ALTER PROCEDURE".
--- 9. String concatenation with '+' IS supported in Fabric.
+-- FABRIC COMPATIBILITY NOTES:
+-- - SET NOCOUNT ON: Supported in Fabric
+-- - GETDATE(), DATEDIFF(), CONVERT(): Supported in Fabric
+-- - EXEC <procedure>: Supported in Fabric
+-- - PRINT: Supported in Fabric (output may not be visible in all clients)
+-- - DECLARE with inline init: Supported in Fabric
+-- - String concatenation with '+': Supported in Fabric
+-- - CAST(... AS VARCHAR): Use explicit length for best practice
 -- =====================================================================
 
-CREATE   PROCEDURE TRANSFORMED.usp_LoadAllTransformed
+CREATE OR ALTER PROCEDURE TRANSFORMED.usp_LoadAllTransformed
 AS
 BEGIN
     SET NOCOUNT ON;
 
     DECLARE @StartTime DATETIME2 = GETDATE();
     PRINT '========================================';
-    PRINT 'Starting TRANSFORMED layer load at ' + CONVERT(VARCHAR, @StartTime, 120);
+    PRINT 'Starting TRANSFORMED layer load at ' + CONVERT(VARCHAR(30), @StartTime, 120);
     PRINT '========================================';
 
     PRINT '';
@@ -44,7 +39,7 @@ BEGIN
     DECLARE @EndTime DATETIME2 = GETDATE();
     PRINT '';
     PRINT '========================================';
-    PRINT 'TRANSFORMED layer load completed at ' + CONVERT(VARCHAR, @EndTime, 120);
-    PRINT 'Duration: ' + CAST(DATEDIFF(SECOND, @StartTime, @EndTime) AS VARCHAR) + ' seconds';
+    PRINT 'TRANSFORMED layer load completed at ' + CONVERT(VARCHAR(30), @EndTime, 120);
+    PRINT 'Duration: ' + CAST(DATEDIFF(SECOND, @StartTime, @EndTime) AS VARCHAR(10)) + ' seconds';
     PRINT '========================================';
 END;

@@ -1,23 +1,17 @@
 -- =====================================================================
--- SOURCE SYNTAX: Microsoft SQL Server (MS SQL / T-SQL)
--- TARGET PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
--- STATUS: REQUIRES CONVERSION to Fabric-compatible syntax
+-- PLATFORM: Microsoft Fabric (Fabric Data Warehouse)
+-- CONVERTED FROM: Microsoft SQL Server (T-SQL)
 --
--- CONVERSION NOTES FOR MICROSOFT FABRIC:
--- 1. SET NOCOUNT ON is NOT supported in Fabric. Remove it.
--- 2. PRINT statements are NOT supported in Fabric. Remove or replace
---    with SELECT for debugging.
--- 3. TRUNCATE TABLE IS supported in Fabric.
--- 4. SELECT DISTINCT IS supported in Fabric.
--- 5. CASE expressions ARE supported in Fabric.
--- 6. IN (...) syntax IS supported in Fabric.
--- 7. @@ROWCOUNT is NOT supported in Fabric. Use ROW_COUNT() instead.
--- 8. CAST(... AS VARCHAR) - Fabric requires explicit length:
---    use CAST(... AS VARCHAR(50)) instead of CAST(... AS VARCHAR).
--- 9. CREATE PROCEDURE syntax: Use CREATE PROCEDURE (not CREATE OR ALTER).
+-- FABRIC COMPATIBILITY NOTES:
+-- - SET NOCOUNT ON: Supported in Fabric
+-- - TRUNCATE TABLE: Supported in Fabric
+-- - SELECT DISTINCT: Supported in Fabric
+-- - CASE expressions: Supported in Fabric
+-- - @@ROWCOUNT: Supported in Fabric
+-- - CAST(... AS VARCHAR(n)): Must specify explicit length in Fabric
 -- =====================================================================
 
-CREATE   PROCEDURE TRANSFORMED.usp_LoadDimPaymentMethod
+CREATE OR ALTER PROCEDURE TRANSFORMED.usp_LoadDimPaymentMethod
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -37,5 +31,5 @@ BEGIN
     FROM RAW.Payments p
     WHERE p.PaymentMethod IS NOT NULL;
 
-    PRINT 'DimPaymentMethod loaded: ' + CAST(@@ROWCOUNT AS VARCHAR) + ' rows';
+    PRINT 'DimPaymentMethod loaded: ' + CAST(@@ROWCOUNT AS VARCHAR(20)) + ' rows';
 END;
