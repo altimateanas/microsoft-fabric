@@ -1,3 +1,4 @@
 .env
 altimate-code.json
 connections.json
+.DS_Store
