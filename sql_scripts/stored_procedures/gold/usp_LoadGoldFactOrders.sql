@@ -11,8 +11,10 @@ AS
 BEGIN
     DROP TABLE IF EXISTS gold.fact_orders;
 
+    -- NOTE: Fabric Warehouse does not support IDENTITY columns;
+    -- generate fact_order_key with ROW_NUMBER() in the INSERT below.
     CREATE TABLE gold.fact_orders (
-        fact_order_key      BIGINT          IDENTITY NOT NULL,
+        fact_order_key      BIGINT          NOT NULL,
         order_id            VARCHAR(20)     NOT NULL,
         order_item_id       INT             NOT NULL,
         customer_key        INT             NOT NULL,
@@ -36,7 +38,7 @@ BEGIN
     );
 
     INSERT INTO gold.fact_orders (
-        order_id, order_item_id, customer_key, product_key,
+        fact_order_key, order_id, order_item_id, customer_key, product_key,
         order_date_key, shipping_date_key, delivery_date_key,
         order_status, shipping_method, payment_method,
         quantity, unit_price, cost_price, discount_percent,
@@ -44,6 +46,7 @@ BEGIN
         discount_amount, tax_amount, shipping_cost
     )
     SELECT
+        ROW_NUMBER() OVER (ORDER BY o.order_id, oi.order_item_id) AS fact_order_key,
         o.order_id,
         oi.order_item_id,
         dc.customer_key,
